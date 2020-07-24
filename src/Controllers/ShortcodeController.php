@@ -91,7 +91,7 @@ class ShortcodeController implements ControllerInterface
             esc_html__('Maximum characters allowed: %s', 'et-simple-crm')
         );
 
-        // TODO: After the test assignment is done add captcha maybe to simulate real conditions
+        // TODO: add captcha
 
         // TODO: Fetch current date via 3rd party API
         return sprintf(
