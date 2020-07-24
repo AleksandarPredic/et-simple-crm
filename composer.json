@@ -1,0 +1,24 @@
+{
+  "name": "et-simple-crm",
+  "description": "A simple CRM system that will collect customer data and build their profiles.",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Aleksandar Predic",
+      "email": "info@acapredic.com"
+    }
+  ],
+  "require": {
+    "php" : ">=7.2.0",
+    "ext-json" : "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ETSimpleCrm\\" : "src/"
+    }
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.17@dev"
+  }
+}

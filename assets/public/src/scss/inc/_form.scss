@@ -1,0 +1,12 @@
+.et-simple-crm-form {
+  &__submit {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .et-simple-crm-loader {
+      margin-left: 15px;
+      opacity: 0;
+    }
+  }
+}

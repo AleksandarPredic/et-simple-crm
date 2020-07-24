@@ -1,0 +1,40 @@
+{
+  "name": "et-simple-crm",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Aleksandar Predic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AleksandarPredic/et-simple-crm"
+  },
+  "scripts": {
+    "grunt": "grunt",
+    "watch": "grunt watch"
+  },
+  "engines": {
+    "npm": ">=2.1.8"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "babelify": "^10.0.0",
+    "core-js": "^3.6.4",
+    "grunt": "^1.0.4",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-browserify": "^5.3.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-compress": "^1.6.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-eslint": "^22.0.0",
+    "grunt-exec": "^3.0.0",
+    "grunt-sass": "^3.1.0",
+    "grunt-stylelint": "^0.14.0",
+    "grunt-terser": "^1.0.0",
+    "node-sass": "^4.13.1",
+    "stylelint": "^13.2.0",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.14.2"
+  }
+}
