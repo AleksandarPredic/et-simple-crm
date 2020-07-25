@@ -9,7 +9,6 @@ import Form from "./modules/Form";
   }
 
   for (let form of forms) {
-    console.log(form);
     new Form(form);
   }
 

@@ -1,4 +1,4 @@
-/* global etSimpleCRMData */
+import Request from './Request';
 
 /**
  * Represents a single form in the DOM
@@ -18,24 +18,13 @@ class Form {
   submit(event) {
     event.preventDefault();
     const formData = new FormData(this.form);
-    const xhr = new XMLHttpRequest();
 
     this.loaderState(true);
-    xhr.open('POST', etSimpleCRMData.ajaxUrl, true);
-    xhr.send(formData);
 
-    xhr.onload = () => {
-      if (xhr.readyState == 4) {
-        let response = JSON.parse(xhr.response);
-        console.log(xhr.response);
-        this.form.querySelector('.et-simple-crm-form__message').innerHTML = response.data.message;
-        this.loaderState(false);
-      }
-    };
-
-    xhr.onerror = () => {
-      console.log("An error occurred during the form sumission");
-    };
+    Request(formData, (response) => {
+      this.form.querySelector('.et-simple-crm-form__message').innerHTML = response.data.message;
+      this.loaderState(false);
+    });
   }
 
   /**

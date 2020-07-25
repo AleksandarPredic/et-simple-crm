@@ -15,7 +15,7 @@ class Form
     public $name = '';
     public $phone = '';
     public $email = '';
-    public $budget = '';
+    public $budget = 0;
     public $message = '';
 
     // Rows & cols

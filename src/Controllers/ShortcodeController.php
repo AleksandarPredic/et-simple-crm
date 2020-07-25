@@ -210,7 +210,8 @@ class ShortcodeController implements ControllerInterface
             $this->pluginSlug,
             'etSimpleCRMData',
             [
-                'ajaxUrl' => admin_url('admin-ajax.php')
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'errorMessage' => esc_html__('An error occurred during the form submission', 'et-simple-crm')
             ]
         );
     }
