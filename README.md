@@ -154,3 +154,11 @@ The PSM Fields library is licensed under the GPL v2 or later.
     
 ## TODO
 * Write unit tests
+
+## Screenshots
+
+##### Frontend form styles
+![Example form preview](https://github.com/AleksandarPredic/et-simple-crm/blob/master/examples/form-examples.jpg)
+
+##### Admin preview
+![Example admin preview](https://github.com/AleksandarPredic/et-simple-crm/blob/master/examples/simple-crm-example.jpg)
