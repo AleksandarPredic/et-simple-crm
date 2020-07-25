@@ -6,6 +6,7 @@ use ETSimpleCrm\Controllers\CustomerCategoriesTaxonomyController;
 use ETSimpleCrm\Controllers\CustomerPostTypeController;
 use ETSimpleCrm\Controllers\CustomerTagsTaxonomyController;
 use ETSimpleCrm\Controllers\ShortcodeController;
+use ETSimpleCrm\I18n\I18n;
 use ETSimpleCrm\Traits\SingletonTrait;
 
 if (!defined('ABSPATH')) {
@@ -33,6 +34,8 @@ class ETSimpleCrm
     public function setInstances()
     {
         // Global
+        I18n::getInstance();
+
         ShortcodeController::getInstance()->init();
 
         // Admin

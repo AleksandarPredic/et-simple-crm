@@ -1,0 +1,256 @@
+# Copyright (C) 2017 Automattic
+# This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple CRM\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
+"POT-Creation-Date: 2020-07-25 16:34+0200\n"
+"PO-Revision-Date: 2019-12-25 15:38+0100\n"
+"Last-Translator: \n"
+"Language-Team: Aleksandar Predic\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x;esc_html__;esc_html_e;esc_html_x;"
+"esc_html_n\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: package.json\n"
+"X-Poedit-SearchPathExcluded-2: package-lock.json\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
+"X-Poedit-SearchPathExcluded-4: build\n"
+"X-Poedit-SearchPathExcluded-5: composer.json\n"
+"X-Poedit-SearchPathExcluded-6: composer.lock\n"
+"X-Poedit-SearchPathExcluded-7: Gruntfile.js\n"
+"X-Poedit-SearchPathExcluded-8: assets\n"
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:66
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:81
+msgid "Customer categories"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:67
+msgid "Customer category"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:68
+msgid "Search Customer categories"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:69
+msgid "Popular Customer categories"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:70
+msgid "All Customer categories"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:73
+msgid "Edit Customer category"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:74
+msgid "Update Customer category"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:75
+msgid "Add New Customer category"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:76
+msgid "New Customer category Name"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:77
+msgid "Separate Customer categories with commas"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:78
+msgid "Add or remove Customer categories"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:79
+msgid "Choose from the most used Customer categories"
+msgstr ""
+
+#: src/Controllers/CustomerCategoriesTaxonomyController.php:80
+msgid "No Customer categories found."
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:59
+msgid "Customers CRM"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:101
+#: src/Controllers/CustomerPostTypeController.php:102
+#: src/Controllers/CustomerPostTypeController.php:103
+#: src/Controllers/CustomerPostTypeController.php:104
+msgid "Customers"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:105
+msgid "Add New"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:106
+msgid "Add New Customer"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:107
+msgid "New Customer"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:108
+msgid "Edit Customer"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:109
+msgid "View Customer"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:110
+msgid "All Customers"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:111
+msgid "Search Customers"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:112
+msgid "Parent Customers:"
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:113
+msgid "No Customers found."
+msgstr ""
+
+#: src/Controllers/CustomerPostTypeController.php:114
+msgid "No Customers found in Trash."
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:66
+#: src/Controllers/CustomerTagsTaxonomyController.php:81
+msgid "Customer tags"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:67
+msgid "Customer tag"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:68
+msgid "Search Customer tags"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:69
+msgid "Popular Customer tags"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:70
+msgid "All Customer tags"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:73
+msgid "Edit Customer tag"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:74
+msgid "Update Customer tag"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:75
+msgid "Add New Customer tag"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:76
+msgid "New Customer tag Name"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:77
+msgid "Separate Customer tags with commas"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:78
+msgid "Add or remove Customer tags"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:79
+msgid "Choose from the most used Customer tags"
+msgstr ""
+
+#: src/Controllers/CustomerTagsTaxonomyController.php:80
+msgid "No Customer tags found."
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:123
+#, php-format
+msgid "Maximum characters allowed: %s"
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:217
+msgid "Please fill all required fields!"
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:238
+msgid ""
+"Email already exists! Please check your email or use another one!"
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:253
+msgid "Error saving the form! Something went wrong!"
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:260
+msgid "Form sent successfully! Thank you!"
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:291
+#, php-format
+msgid "WP local time: %s"
+msgstr ""
+
+#: src/Controllers/ShortcodeController.php:339
+msgid "An error occurred during the form submission"
+msgstr ""
+
+#: src/Services/API/APIGeolocationService.php:68
+msgid ""
+"Something went wrong while getting the data from the World time API."
+msgstr ""
+
+#: src/Services/API/APIGeolocationService.php:81
+msgid "Some error occurred while fetching the timezone or IP unknown."
+msgstr ""
+
+#: src/Services/API/APIGeolocationService.php:90
+msgid "Response json error!"
+msgstr ""
+
+#: src/ValueObjects/Form.php:55
+msgid "Name"
+msgstr ""
+
+#: src/ValueObjects/Form.php:56
+msgid "Phone Number"
+msgstr ""
+
+#: src/ValueObjects/Form.php:57
+msgid "Email Address"
+msgstr ""
+
+#: src/ValueObjects/Form.php:58
+msgid "Desired Budget in USD"
+msgstr ""
+
+#: src/ValueObjects/Form.php:59
+msgid "Message"
+msgstr ""
+
+#: src/ValueObjects/Form.php:60
+msgid "Send"
+msgstr ""
