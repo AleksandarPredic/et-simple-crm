@@ -5,8 +5,10 @@ namespace ETSimpleCrm\Controllers;
 use ETSimpleCrm\Contracts\APIServiceInterface;
 use ETSimpleCrm\Contracts\ControllerInterface;
 use ETSimpleCrm\Helpers\Config;
+use ETSimpleCrm\Models\CustomerModel;
 use ETSimpleCrm\Services\Factories\APIGeolocationServiceFactory;
 use ETSimpleCrm\Traits\SingletonTrait;
+use ETSimpleCrm\ValueObjects\Customer;
 use ETSimpleCrm\ValueObjects\Form;
 
 if (!defined('ABSPATH')) {
@@ -69,6 +71,12 @@ class ShortcodeController implements ControllerInterface
     private $timeApi;
 
     /**
+     * Post type customer id
+     * @var string
+     */
+    private $postTypeCustomerId;
+
+    /**
      * ShortcodeController constructor.
      */
     public function __construct()
@@ -82,6 +90,7 @@ class ShortcodeController implements ControllerInterface
         $this->ajaxTimeActionHook = sprintf('%s_getCurrentTimeFromAPI', $nonceName);
         $this->nonceName = sprintf('%s_formSubmit', $nonceName);
         $this->timeApi = APIGeolocationServiceFactory::make();
+        $this->postTypeCustomerId = $config->getCustomerPostTypeId();
     }
 
     /**
@@ -114,9 +123,10 @@ class ShortcodeController implements ControllerInterface
             esc_html__('Maximum characters allowed: %s', 'et-simple-crm')
         );
 
-        // TODO: add captcha
+        $requiredFields = Form::REQUIRED_FIELDS;
 
-        // TODO: Fetch current date via 3rd party API
+        // TODO: add captcha in some next plugin versions
+
         return sprintf(
             '<div class="et-simple-crm-form">
                 <form class="et-simple-crm-form__form">
@@ -124,23 +134,23 @@ class ShortcodeController implements ControllerInterface
                     <input name="action" type="hidden" value="%14$s" />
                     %15$s
                     <p>
-                        <label>%1$s</label>
-                        <input name="name" type="text" value="%2$s"%16$s />
+                        <label>%1$s <small>%26$s</small></label>
+                        <input name="name" type="text" value="%2$s"%16$s %26$s/>
                         %17$s
                     </p>
                     <p>
-                        <label>%3$s</label>
-                        <input name="phone" type="tel" value="%4$s"%18$s />
+                        <label>%3$s <small>%27$s</small></label>
+                        <input name="phone" type="tel" value="%4$s"%18$s %27$s/>
                         %19$s
                     </p>
                     <p>
-                        <label>%5$s</label>
-                        <input name="email" type="email" value="%6$s"%20$s />
+                        <label>%5$s <small>%28$s</small></label>
+                        <input name="email" type="email" value="%6$s"%20$s %28$s/>
                         %21$s
                     </p>
                     <p>
-                        <label>%7$s</label>
-                        <input name="budget" type="number" value="%8$s"%22$s />
+                        <label>%7$s <small>%29$s</small></label>
+                        <input name="budget" type="number" value="%8$s"%22$s %29$s/>
                         %23$s
                     </p>
                     <p>
@@ -179,24 +189,75 @@ class ShortcodeController implements ControllerInterface
             ! empty($form->maxlength_budget) ? sprintf(' min="0" max="%s"', $form->maxlength_budget) : '', // %22$s
             ! empty($form->maxlength_budget) ? sprintf($maxLengthNotice, $form->maxlength_budget) : '', // %23$s
             ! empty($form->maxlength_message) ? sprintf(' maxlength="%s"', $form->maxlength_message) : '', // %24$s
-            ! empty($form->maxlength_message) ? sprintf($maxLengthNotice, $form->maxlength_message) : '' // %25$s
+            ! empty($form->maxlength_message) ? sprintf($maxLengthNotice, $form->maxlength_message) : '', // %25$s
+            in_array('name', $requiredFields) ? 'required' : '', // %26$s
+            in_array('phone', $requiredFields) ? 'required' : '', // %27$s
+            in_array('email', $requiredFields) ? 'required' : '', // %28$s
+            in_array('budget', $requiredFields) ? 'required' : '' // %29$s
         );
     }
 
     /**
      * Hook on ajax action hook
-     * Using $_POST
+     * @global array $_POST
      */
     public function formSubmit()
     {
         check_admin_referer($this->ajaxSubmitActionHook, $this->nonceName);
 
-        // TODO: Check if any of the fields is empty as all are required
+        // Check required fields on the server side
+        $requiredFields = Form::REQUIRED_FIELDS;
+        foreach ($requiredFields as $field) {
+            if (isset($_POST[$field]) && ! empty($_POST[$field])) {
+                continue;
+            }
 
-        // TODO: Add new post type record
+            wp_send_json_success(
+                [
+                    'message' => esc_html__('Please fill all required fields!', 'et-simple-crm')
+                ]
+            );
+        }
+
+        $customer = new Customer(
+            in_array('name', $requiredFields) ? $_POST['name'] : null,
+            in_array('phone', $requiredFields) ? $_POST['phone'] : null,
+            in_array('email', $requiredFields) ? $_POST['email'] : null,
+            in_array('budget', $requiredFields) ? $_POST['budget'] : null,
+            isset($_POST['message']) ? $_POST['message'] : '',
+            isset($_POST['time']) ? $_POST['time'] : ''
+        );
+
+        $model = new CustomerModel();
+
+        // Check if there is such customer with the same email
+        if ($model->checkIfEmailExists($customer->email)) {
+            wp_send_json_success(
+                [
+                    'message' => esc_html__(
+                        'Email already exists! Please check your email or use another one!',
+                        'et-simple-crm'
+                    )
+                ]
+            );
+        }
+
+        // Saving
+        try {
+            $model->save($customer);
+        } catch (\Exception $e) {
+            // TODO: Add logger here
+
+            wp_send_json_error(
+                [
+                    'message' => esc_html__('Error saving the form! Something went wrong!', 'et-simple-crm')
+                ]
+            );
+        }
+
         wp_send_json_success(
             [
-                'message' => esc_html__('Form sent successfully!', 'et-simple-crm')
+                'message' => esc_html__('Form sent successfully! Thank you!', 'et-simple-crm')
             ]
         );
     }

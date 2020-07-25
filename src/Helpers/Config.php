@@ -66,6 +66,15 @@ class Config
     }
 
     /**
+     * Return plugin short slug
+     * @return string
+     */
+    public function getPluginShortSlug()
+    {
+        return self::PLUGIN_SHORT_SLUG;
+    }
+
+    /**
      * Return assets directory path without the last backslash
      * @return string
      */

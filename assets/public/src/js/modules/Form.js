@@ -10,7 +10,9 @@ class Form {
     this.form = element;
     this.form.addEventListener('submit', this.submit.bind(this));
     this.loader = this.form.querySelector('.et-simple-crm-loader');
-    this.form.addEventListener('input', this.verifyNumberMaxValue.bind(this));
+    this.submitButton = this.form.querySelector('.et-simple-crm-form__submit button');
+    this.inputNumber = this.form.querySelector('input[type="number');
+    this.inputNumber.addEventListener('input', this.verifyNumberMaxValue.bind(this));
     this.getTimeToInput();
   }
 
@@ -23,10 +25,12 @@ class Form {
     const formData = new FormData(this.form);
 
     this.loaderState(true);
+    this.disableButton(true);
 
     Request(formData, (response) => {
       this.form.querySelector('.et-simple-crm-form__message').innerHTML = response.data.message;
       this.loaderState(false);
+      this.disableButton(false);
     });
   }
 
@@ -41,6 +45,15 @@ class Form {
     } else {
       this.loader.style.opacity = 0;
     }
+  }
+
+  /**
+   * Manage submit button state: Disabled or not
+   * @param {boolean} state
+   */
+  disableButton(state)
+  {
+    this.submitButton.disabled = state;
   }
 
   /**

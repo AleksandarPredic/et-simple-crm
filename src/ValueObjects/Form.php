@@ -8,6 +8,12 @@ namespace ETSimpleCrm\ValueObjects;
  */
 class Form
 {
+    /**
+     * Fields that should be required in the form
+     * @var array
+     */
+    public const REQUIRED_FIELDS = ['name', 'phone', 'email', 'budget'];
+
     // Keep all properties lowercase to match with the shortcode attributes
 
     // Values

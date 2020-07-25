@@ -82,7 +82,7 @@ class CustomerPostTypeController implements ControllerInterface, CustomPostTypeI
             'has_archive' => false,
             'hierarchical' => false,
             'menu_position' => 16,
-            'supports' => [ 'title', '' ],
+            'supports' => [ 'title', 'editor', 'custom-fields' ],
             'taxonomies' => [],
             'menu_icon' => 'dashicons-groups'
         ];
