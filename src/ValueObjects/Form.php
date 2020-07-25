@@ -38,6 +38,9 @@ class Form
     public $maxlength_budget;
     public $maxlength_message;
 
+    // Can't be overridden by shortcode attributes
+    public $time = '';
+
     /**
      * Form constructor.
      */

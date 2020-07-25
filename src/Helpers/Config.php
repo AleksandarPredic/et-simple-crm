@@ -2,6 +2,10 @@
 
 namespace ETSimpleCrm\Helpers;
 
+if (!defined('ABSPATH')) {
+    exit;
+} // Exit if accessed directly
+
 use ETSimpleCrm\Traits\SingletonTrait;
 
 /**

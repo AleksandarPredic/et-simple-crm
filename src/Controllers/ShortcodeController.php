@@ -2,10 +2,16 @@
 
 namespace ETSimpleCrm\Controllers;
 
+use ETSimpleCrm\Contracts\APIServiceInterface;
 use ETSimpleCrm\Contracts\ControllerInterface;
 use ETSimpleCrm\Helpers\Config;
+use ETSimpleCrm\Services\Factories\APIGeolocationServiceFactory;
 use ETSimpleCrm\Traits\SingletonTrait;
 use ETSimpleCrm\ValueObjects\Form;
+
+if (!defined('ABSPATH')) {
+    exit;
+} // Exit if accessed directly
 
 /**
  * Class ShortcodeController responsible for the shortcode functionality
@@ -21,10 +27,16 @@ class ShortcodeController implements ControllerInterface
     public const TAG = 'et-simple-crm-form';
 
     /**
-     * Ajax action hook
+     * Ajax action hook on form submit
      * @var string
      */
-    private $ajaxActionHook;
+    private $ajaxSubmitActionHook;
+
+    /**
+     * Ajax action hook to get time on frontend
+     * @var string
+     */
+    private $ajaxTimeActionHook;
 
     /**
      * Form nonce name
@@ -51,6 +63,12 @@ class ShortcodeController implements ControllerInterface
     private $pluginVersion;
 
     /**
+     * Time API
+     * @var APIServiceInterface
+     */
+    private $timeApi;
+
+    /**
      * ShortcodeController constructor.
      */
     public function __construct()
@@ -60,8 +78,10 @@ class ShortcodeController implements ControllerInterface
         $this->assetsUrl = $config->getAssetsUrl();
         $this->pluginVersion = $config->getPluginVersion();
         $nonceName = str_replace('-', '_', $this->pluginSlug);
-        $this->ajaxActionHook = sprintf('%s_formSubmit', $nonceName);
+        $this->ajaxSubmitActionHook = sprintf('%s_formSubmit', $nonceName);
+        $this->ajaxTimeActionHook = sprintf('%s_getCurrentTimeFromAPI', $nonceName);
         $this->nonceName = sprintf('%s_formSubmit', $nonceName);
+        $this->timeApi = APIGeolocationServiceFactory::make();
     }
 
     /**
@@ -71,11 +91,14 @@ class ShortcodeController implements ControllerInterface
     {
         add_shortcode(self::TAG, [ $this, 'render' ]);
         add_action('wp_enqueue_scripts', [ $this, 'scripts']);
-        add_action(sprintf('wp_ajax_%s', $this->ajaxActionHook), [$this, 'formSubmit']);
-        add_action(sprintf('wp_ajax_nopriv_%s', $this->ajaxActionHook), [$this, 'formSubmit']);
+        add_action(sprintf('wp_ajax_%s', $this->ajaxSubmitActionHook), [$this, 'formSubmit']);
+        add_action(sprintf('wp_ajax_nopriv_%s', $this->ajaxSubmitActionHook), [$this, 'formSubmit']);
+        add_action(sprintf('wp_ajax_%s', $this->ajaxTimeActionHook), [$this, 'getCurrentTimeFromAPI']);
+        add_action(sprintf('wp_ajax_nopriv_%s', $this->ajaxTimeActionHook), [$this, 'getCurrentTimeFromAPI']);
     }
 
     /**
+     * Render shortcode
      * @param array $atts
      * @param string $content
      * @return string
@@ -97,6 +120,7 @@ class ShortcodeController implements ControllerInterface
         return sprintf(
             '<div class="et-simple-crm-form">
                 <form class="et-simple-crm-form__form">
+                    <input class="et-simple-crm-form__time" name="time" type="hidden" value="" />
                     <input name="action" type="hidden" value="%14$s" />
                     %15$s
                     <p>
@@ -144,8 +168,8 @@ class ShortcodeController implements ControllerInterface
             esc_attr($form->message_rows), // %11$s
             esc_attr($form->message_cols), // %12$s
             esc_html($form->label_button), // %13$s
-            $this->ajaxActionHook, // %14$s
-            wp_nonce_field($this->ajaxActionHook, $this->nonceName, false, false), // %15$s
+            $this->ajaxSubmitActionHook, // %14$s
+            wp_nonce_field($this->ajaxSubmitActionHook, $this->nonceName, false, false), // %15$s
             ! empty($form->maxlength_name) ? sprintf(' maxlength="%s"', $form->maxlength_name) : '', // %16$s
             ! empty($form->maxlength_name) ? sprintf($maxLengthNotice, $form->maxlength_name) : '', // %17$s
             ! empty($form->maxlength_phone) ? sprintf(' maxlength="%s"', $form->maxlength_phone) : '', // %18$s
@@ -165,7 +189,7 @@ class ShortcodeController implements ControllerInterface
      */
     public function formSubmit()
     {
-        check_admin_referer($this->ajaxActionHook, $this->nonceName);
+        check_admin_referer($this->ajaxSubmitActionHook, $this->nonceName);
 
         // TODO: Check if any of the fields is empty as all are required
 
@@ -173,6 +197,46 @@ class ShortcodeController implements ControllerInterface
         wp_send_json_success(
             [
                 'message' => esc_html__('Form sent successfully!', 'et-simple-crm')
+            ]
+        );
+    }
+
+    /**
+     * Hook on ajax action hook
+     * Using $_POST
+     */
+    public function getCurrentTimeFromAPI()
+    {
+        check_admin_referer($this->ajaxSubmitActionHook, $this->nonceName);
+
+        // Format time as selected in WP settings
+        $timeFormat = get_option('date_format') . ' ' . get_option('time_format');
+
+        try {
+            $response = $this->timeApi->get();
+            $data = $response->getData();
+            // @var \DateTime $dateTime
+            $dateTime = $data['dateTime'];
+            $time = $dateTime->format($timeFormat);
+        } catch (\Exception $e) {
+            // TODO: Add logger here
+
+            // IP address not found or error. Get local WP time
+            $dateTime = new \DateTime();
+            $dateTime->setTimestamp(current_time('timestamp'));
+            wp_send_json_success(
+                [
+                    'time' => sprintf(
+                        esc_html__('WP local time: %s'),
+                        $dateTime->format($timeFormat)
+                    )
+                ]
+            );
+        }
+
+        wp_send_json_success(
+            [
+                'time' => $time
             ]
         );
     }
@@ -211,7 +275,9 @@ class ShortcodeController implements ControllerInterface
             'etSimpleCRMData',
             [
                 'ajaxUrl' => admin_url('admin-ajax.php'),
-                'errorMessage' => esc_html__('An error occurred during the form submission', 'et-simple-crm')
+                'errorMessage' => esc_html__('An error occurred during the form submission', 'et-simple-crm'),
+                'timeAction' => $this->ajaxTimeActionHook
+
             ]
         );
     }

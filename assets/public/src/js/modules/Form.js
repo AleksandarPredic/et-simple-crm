@@ -1,5 +1,7 @@
 import Request from './Request';
 
+/* global etSimpleCRMData */
+
 /**
  * Represents a single form in the DOM
  */
@@ -9,6 +11,7 @@ class Form {
     this.form.addEventListener('submit', this.submit.bind(this));
     this.loader = this.form.querySelector('.et-simple-crm-loader');
     this.form.addEventListener('input', this.verifyNumberMaxValue.bind(this));
+    this.getTimeToInput();
   }
 
   /**
@@ -54,6 +57,19 @@ class Form {
     if (input.value > max) {
       input.value = max;
     }
+  }
+
+  /**
+   * Fetch time on load and put the value into a hidden input
+   */
+  getTimeToInput() {
+
+    const formData = new FormData(this.form);
+    formData.set('action', etSimpleCRMData.timeAction);
+
+    Request(formData, (response) => {
+      this.form.querySelector('.et-simple-crm-form__time').value = response.data.time;
+    });
   }
 }
 
