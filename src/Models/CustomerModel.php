@@ -2,7 +2,6 @@
 
 namespace ETSimpleCrm\Models;
 
-// TODO: Make interface
 use ETSimpleCrm\Contracts\CustomerModelInterface;
 use ETSimpleCrm\Helpers\Config;
 use ETSimpleCrm\ValueObjects\Customer;
