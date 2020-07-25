@@ -14,6 +14,8 @@
  * Domain Path:       /languages
  */
 
+use ETSimpleCrm\Controllers\PluginActivationController;
+use ETSimpleCrm\Controllers\PluginDeactivationController;
 use ETSimpleCrm\ETSimpleCrm;
 
 if (!defined('ABSPATH')) {
@@ -24,6 +26,12 @@ require plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 define("ET_SIMPLE_CRM_DIR", plugin_dir_path(__FILE__));
 define("ET_SIMPLE_CRM_FILE", __FILE__);
+
+/**
+ * Register activation hook
+ */
+register_activation_hook(__FILE__, [PluginActivationController::getInstance(), 'init']);
+register_deactivation_hook(__FILE__, [PluginDeactivationController::getInstance(), 'init']);
 
 add_action('plugins_loaded', function () {
     ETSimpleCrm::getInstance()->setInstances();

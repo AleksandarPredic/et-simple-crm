@@ -2,6 +2,9 @@
 
 namespace ETSimpleCrm;
 
+use ETSimpleCrm\Controllers\CustomerCategoriesTaxonomyController;
+use ETSimpleCrm\Controllers\CustomerPostTypeController;
+use ETSimpleCrm\Controllers\CustomerTagsTaxonomyController;
 use ETSimpleCrm\Controllers\ShortcodeController;
 use ETSimpleCrm\Traits\SingletonTrait;
 
@@ -34,6 +37,9 @@ class ETSimpleCrm
 
         // Admin
         if (is_admin()) {
+            CustomerPostTypeController::getInstance()->init();
+            CustomerTagsTaxonomyController::getInstance()->init();
+            CustomerCategoriesTaxonomyController::getInstance()->init();
         }
 
         // Frontend

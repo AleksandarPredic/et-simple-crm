@@ -17,6 +17,12 @@ class Config
     use SingletonTrait;
 
     /**
+     * Plugin short slug
+     * @var string
+     */
+    private const PLUGIN_SHORT_SLUG = 'etscrm';
+
+    /**
      * Holds plugin data array:
      * 'Name' (string) Name of the plugin. Should be unique.
      * 'Title' (string) Title of the plugin and link to the plugin's site (if set).
@@ -51,6 +57,15 @@ class Config
     }
 
     /**
+     * Return the plugin slug with underscore instead of dash between words
+     * @return string
+     */
+    public function getPluginSlugWithUnderscore()
+    {
+        return $this->replaceDashWithUnderscore($this->getPluginSlug());
+    }
+
+    /**
      * Return assets directory path without the last backslash
      * @return string
      */
@@ -68,6 +83,85 @@ class Config
         return $this->pluginData['Version'];
     }
 
+    // Custom taxonomies and post types
+
+    /**
+     * Return Customer post type id
+     * @return string
+     */
+    public function getCustomerPostTypeId()
+    {
+        return sprintf('%s-customer', self::PLUGIN_SHORT_SLUG);
+    }
+
+    /**
+     * Get customer post type rewrite slug
+     * @return string
+     */
+    public function getCustomerPostTypeRewriteSlug()
+    {
+        return apply_filters(
+            sprintf(
+                '%s_%s_post_type_rewrite_slug',
+                $this->getPluginSlugWithUnderscore(),
+                $this->replaceDashWithUnderscore($this->getCustomerPostTypeId())
+            ),
+            'customer'
+        );
+    }
+
+    /**
+     * Return Customer tags taxonomy id
+     * @return string
+     */
+    public function getCustomerTagsTaxonomyId()
+    {
+        return sprintf('%s-customer-tags', self::PLUGIN_SHORT_SLUG);
+    }
+
+    /**
+     * Get customer tags taxonomy rewrite slug
+     * @return string
+     */
+    public function getCustomerTagsTaxonomyRewriteSlug()
+    {
+        return apply_filters(
+            sprintf(
+                '%s_%s_taxonomy_rewrite_slug',
+                $this->getPluginSlugWithUnderscore(),
+                $this->replaceDashWithUnderscore($this->getCustomerTagsTaxonomyId())
+            ),
+            'customer-tags'
+        );
+    }
+
+    /**
+     * Return Customer categories taxonomy id
+     * @return string
+     */
+    public function getCustomerCategoriesTaxonomyId()
+    {
+        return sprintf('%s-customer-categories', self::PLUGIN_SHORT_SLUG);
+    }
+
+    /**
+     * Get customer categories taxonomy rewrite slug
+     * @return string
+     */
+    public function getCustomerCategoriesTaxonomyRewriteSlug()
+    {
+        return apply_filters(
+            sprintf(
+                '%s_%s_taxonomy_rewrite_slug',
+                $this->getPluginSlugWithUnderscore(),
+                $this->replaceDashWithUnderscore($this->getCustomerTagsTaxonomyId())
+            ),
+            'customer-categories'
+        );
+    }
+
+    // Other private methods
+
     /**
      * Return the plugin data from the main plugin file header
      * @return array
@@ -79,5 +173,15 @@ class Config
         }
 
         return get_plugin_data(ET_SIMPLE_CRM_FILE);
+    }
+
+    /**
+     * Replace dash with underscore in string
+     * @param string $string
+     * @return string
+     */
+    private function replaceDashWithUnderscore($string)
+    {
+        return str_replace('-', '_', $string);
     }
 }
