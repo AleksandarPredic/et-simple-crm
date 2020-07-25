@@ -44,6 +44,9 @@ class Form
     public $maxlength_budget;
     public $maxlength_message;
 
+    // Other
+    public $styled_form = 0; // Use non styled form by default as it fits the theme design
+
     // Can't be overridden by shortcode attributes
     public $time = '';
 

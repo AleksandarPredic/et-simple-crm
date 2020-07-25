@@ -9,4 +9,98 @@
       opacity: 0;
     }
   }
+
+  // Styles only for the styled version when forces via shortcode atts
+  &--styled {
+    box-shadow: 0 0 40px -10px $color__box-shadow;
+    padding: 40px;
+    background-color: $color__white;
+
+    form {
+      > p {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      input {
+        line-height: 1;
+      }
+
+      textarea {
+        line-height: 1.2;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        background-color: $color__grey;
+        color: $color__444;
+        font-size: 16px;
+        border: none;
+        padding: 15px;
+        margin: 0 0 5px 0;
+
+        &:focus {
+          border: none;
+          outline: $color__secondary solid 1px;
+        }
+
+        + small {
+          font-size: 14px;
+          color: $color__444;
+          line-height: 1;
+        }
+      }
+
+      label {
+        font-size: 16px;
+        margin: 0 15px 5px 0;
+        line-height: 1;
+
+        small {
+          color: $color__main;
+          font-size: 14px;
+          line-height: 1;
+        }
+      }
+
+      .et-simple-crm-form__message {
+        font-size: 16px;
+        line-height: 1.2;
+        color: $color__main;
+        padding: 10px 10px 10px 0;
+        font-weight: bold;
+      }
+
+      button {
+        max-width: calc(100% - 70px);
+        text-align: center;
+        margin: 0 15px 0 0;
+        background-color: $color__main;
+        color: $color__white;
+        border: none;
+        padding: 30px;
+        text-decoration: none;
+        transition: background-color 0.25s ease-in-out;
+        font-size: 16px;
+        line-height: 1.1;
+
+        &:hover {
+          background-color: $color__secondary;
+        }
+      }
+    }
+
+    @media (max-width: 991px) {
+      padding: 20px;
+
+      form {
+        button {
+          padding: 15px;
+        }
+      }
+    }
+  }
 }

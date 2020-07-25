@@ -136,7 +136,7 @@ class ShortcodeController implements ControllerInterface
         // TODO: add captcha in some next plugin versions
 
         return sprintf(
-            '<div class="et-simple-crm-form">
+            '<div class="et-simple-crm-form%30$s">
                 <form class="et-simple-crm-form__form">
                     <input class="et-simple-crm-form__time" name="time" type="hidden" value="" />
                     <input name="action" type="hidden" value="%14$s" />
@@ -169,8 +169,13 @@ class ShortcodeController implements ControllerInterface
                     <p class="et-simple-crm-form__message"></p>
                     <div class="et-simple-crm-form__submit">
                         <button type="submit">%13$s</button>
-                        <div class="et-simple-crm-loader"><div></div><div></div><div></div><div></div></div>
-                    </p>
+                        <div class="et-simple-crm-loader">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
                 </form>
             </div>',
             esc_html($form->label_name), // %1$s
@@ -201,7 +206,8 @@ class ShortcodeController implements ControllerInterface
             in_array('name', $requiredFields) ? 'required' : '', // %26$s
             in_array('phone', $requiredFields) ? 'required' : '', // %27$s
             in_array('email', $requiredFields) ? 'required' : '', // %28$s
-            in_array('budget', $requiredFields) ? 'required' : '' // %29$s
+            in_array('budget', $requiredFields) ? 'required' : '', // %29$s
+            $form->styled_form ? ' et-simple-crm-form--styled' : '' // %30$s
         );
     }
 
