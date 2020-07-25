@@ -89,6 +89,13 @@ class CustomerCategoriesTaxonomyController implements ControllerInterface, Custo
             'show_ui' => true,
             'show_in_quick_edit' => true,
             'show_admin_column' => true,
+            // allow only to admin
+            'capabilities' => [
+                'manage_terms' => 'manage_options',
+                'edit_terms' => 'manage_options',
+                'delete_terms' => 'manage_options',
+                'assign_terms' => 'manage_options',
+            ],
             'publicly_queryable' => false,
             'query_var' => true,
             'rewrite' => [ 'slug' => $this->rewriteslug ],

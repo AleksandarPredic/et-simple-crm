@@ -47,7 +47,7 @@ form that this shortcode render, not all forms.
 
 #### Example of the shortcode with all available attributes
 ```text
-[et-simple-crm-form name="Name value" phone="0123456789" email="email@email.com" budget="10.000 usd" label_name="Name label override" message="Message text override" label_phone="Phone label override" label_email="Email label override" label_budget="Budget label override" label_message="Message label override" message_rows="20" message_cols="10" label_button="Button text override"  maxlength_name="20" maxlength_phone="20" maxlength_email="20" maxlength_budget="20" maxlength_message="20"  styled_form="1"]Message real value[/et-simple-crm-form]
+[et-simple-crm-form name="Name value" phone="0123456789" email="email@email.com" budget="10000" label_name="Name label override" message="Message text override" label_phone="Phone label override" label_email="Email label override" label_budget="Budget label override" label_message="Message label override" message_rows="20" message_cols="10" label_button="Button text override"  maxlength_name="20" maxlength_phone="20" maxlength_email="20" maxlength_budget="20" maxlength_message="20"  styled_form="1"]Message real value[/et-simple-crm-form]
 ```
 
 #### Available attributes for overrides
@@ -55,7 +55,7 @@ Just add any of these attributes to the shortcode and pass the value you want to
 * `name` - Override name value field
 * `phone` - Override phone value field
 * `email` - Override email value field
-* `budget` - Override budget value field (Numbers only)
+* `budget` - Override budget value field (Numbers only without dot or comma)
 * `message` - Override textarea value. You can also use the shortcode `$content` value between shortcodes opening and cosing tags
 * `label_name` - Override name field label 
 * `label_phone` - Override phone field label 
