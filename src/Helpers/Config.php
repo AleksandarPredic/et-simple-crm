@@ -92,6 +92,15 @@ class Config
         return $this->pluginData['Version'];
     }
 
+    /**
+     * Return if the debug is on of off
+     * @return bool
+     */
+    public function getDebugLogState()
+    {
+        return defined('WP_DEBUG_LOG') && WP_DEBUG_LOG;
+    }
+
     // Custom taxonomies and post types
 
     /**

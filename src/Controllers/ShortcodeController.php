@@ -5,6 +5,7 @@ namespace ETSimpleCrm\Controllers;
 use ETSimpleCrm\Contracts\APIServiceInterface;
 use ETSimpleCrm\Contracts\ControllerInterface;
 use ETSimpleCrm\Helpers\Config;
+use ETSimpleCrm\Helpers\LoggerHelper;
 use ETSimpleCrm\Models\CustomerModel;
 use ETSimpleCrm\Services\Factories\APIGeolocationServiceFactory;
 use ETSimpleCrm\Traits\SingletonTrait;
@@ -77,6 +78,12 @@ class ShortcodeController implements ControllerInterface
     private $postTypeCustomerId;
 
     /**
+     * Logger
+     * @var LoggerHelper
+     */
+    private $logger;
+
+    /**
      * ShortcodeController constructor.
      */
     public function __construct()
@@ -91,6 +98,7 @@ class ShortcodeController implements ControllerInterface
         $this->nonceName = sprintf('%s_formSubmit', $nonceName);
         $this->timeApi = APIGeolocationServiceFactory::make();
         $this->postTypeCustomerId = $config->getCustomerPostTypeId();
+        $this->logger = LoggerHelper::getInstance();
     }
 
     /**
@@ -246,7 +254,7 @@ class ShortcodeController implements ControllerInterface
         try {
             $model->save($customer);
         } catch (\Exception $e) {
-            // TODO: Add logger here
+            $this->logger->logException($e);
 
             wp_send_json_error(
                 [
@@ -280,7 +288,7 @@ class ShortcodeController implements ControllerInterface
             $dateTime = $data['dateTime'];
             $time = $dateTime->format($timeFormat);
         } catch (\Exception $e) {
-            // TODO: Add logger here
+            $this->logger->logException($e);
 
             // IP address not found or error. Get local WP time
             $dateTime = new \DateTime();
