@@ -25,6 +25,9 @@ Here is a list of the plugin features.
 * Edit Customer fields in the admin using the WP custom fields
 * Plugin is translation ready. Already prepared .pot file
 * If `WP_DEBUG_LOG` is enabled, then all errors will be logged to the file: `wp-content/uploads/et-simple-crm/log.log`
+* Custom post type is added to record all form sumissions
+* Custom taxonomies for tags and categories are added only for this post type. You can use them to tag and categorize the
+post type records.
 
 ### Form fields
 * Name (required)
