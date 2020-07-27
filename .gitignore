@@ -4,5 +4,4 @@ package-lock.json
 .idea
 npm-debug.log
 vendor
-et-simple-crm.zip
 .php_cs.cache

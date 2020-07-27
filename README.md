@@ -72,6 +72,11 @@ Just add any of these attributes to the shortcode and pass the value you want to
 * `maxlength_message` - Set maximum number of characters for the message field
 * `styled_form` - Set value here to 1 or 0. 1 to use the plugin form styles. 0 To leave form unstyled, so it can fit to the theme styles.
 
+## WordPress plugin installation
+Just upload the file `et-simple-crm.zip` from the plugin root to the WordPress website.
+
+If you changed something in the codebase, please use the described process below to build the plugin `et-simple-crm.zip` 
+file. 
 
 ## Installation and dev instructions
 You will need to have `composer` installed on your system. Also, in order to build and test plugin, 
